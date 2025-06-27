@@ -1,7 +1,5 @@
 import json
-from pprint import pprint
 from jinja2 import Environment, FileSystemLoader, select_autoescape
-from http.server import HTTPServer, SimpleHTTPRequestHandler
 from livereload import Server, shell
 
 
@@ -13,13 +11,20 @@ def render_library_site():
 
     env = Environment(loader=FileSystemLoader('.'), autoescape=select_autoescape(['html', 'xml']))
     template = env.get_template('template.html')
-    rendered_page = template.render(books=books)
+    return template.render(books=books)
 
+
+def on_reload(rendered_page):
     with open('index.html', 'w', encoding="utf8") as file:
-        file.write(rendered_page)
+        return file.write(rendered_page)
 
-render_library_site()
 
-server = Server()
-server.watch('template.html', render_library_site)
-server.serve(root='.')
+def main():
+    on_reload(render_library_site())
+    server = Server()
+    server.watch('template.html', render_library_site)
+    server.serve(root='.')
+
+
+if __name__ == '__main__':
+    main()
