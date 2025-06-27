@@ -1,30 +1,40 @@
 import json
+import os
+from pathlib import Path
+
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server, shell
 from more_itertools import chunked
 
 
-def render_library_site():
-    with open("meta_data.json", "r", encoding='UTF-8') as my_file:
-        meta_data_json = my_file.read()
-
-    books_chunked = list(chunked(json.loads(meta_data_json),2))
-
+def render_library_site(books_chunk):
     env = Environment(loader=FileSystemLoader('.'), autoescape=select_autoescape(['html', 'xml']))
     template = env.get_template('template.html')
-    return template.render(books_rows=books_chunked)
+    return template.render(books_rows=books_chunk)
 
 
-def on_reload(rendered_page):
-    with open('index.html', 'w', encoding="utf8") as file:
-        return file.write(rendered_page)
+def save_paginated_books(books, books_per_page=10):
+    book_pages = list(chunked(books, books_per_page))
+
+    project_root = Path(__file__).parent
+    target_dir = project_root / 'pages'
+    target_dir.mkdir(parents=True, exist_ok=True)
+
+    for page_num, page_books in enumerate(book_pages, start=1):
+        books_chunked = list(chunked(page_books, 2))
+        rendered_page = render_library_site(books_chunked)
+        file_path = target_dir / f'index{page_num}.html'
+        with open(file_path, 'w', encoding='utf-8') as file:
+            file.write(rendered_page)
 
 
 def main():
-    on_reload(render_library_site())
+    with open("meta_data.json", "r", encoding='UTF-8') as my_file:
+        books_json = json.load(my_file)
+    save_paginated_books(books_json)
     server = Server()
-    server.watch('template.html', render_library_site)
-    server.serve(root='.')
+    server.watch('pages/*.html')
+    server.serve(root='pages', default_filename='index2.html')
 
 
 if __name__ == '__main__':
