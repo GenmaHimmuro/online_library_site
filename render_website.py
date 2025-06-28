@@ -31,10 +31,6 @@ def save_paginated_books(books, books_per_page=10):
             file.write(rendered_page)
 
 
-# def get_page_count(dir):
-#     return len(os.listdir(dir))
-
-
 def main():
     with open("meta_data.json", "r", encoding='UTF-8') as my_file:
         books_json = json.load(my_file)
