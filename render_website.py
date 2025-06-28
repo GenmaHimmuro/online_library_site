@@ -1,31 +1,38 @@
 import json
 import os
 from pathlib import Path
-
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server, shell
 from more_itertools import chunked
 
 
-def render_library_site(books_chunk):
+def render_library_site(books_chunk, current_page, pages_count):
     env = Environment(loader=FileSystemLoader('.'), autoescape=select_autoescape(['html', 'xml']))
     template = env.get_template('template.html')
-    return template.render(books_rows=books_chunk)
-
+    return template.render(
+        books_rows=books_chunk,
+        current_page=current_page,
+        pages_count=pages_count
+    )
 
 def save_paginated_books(books, books_per_page=10):
-    book_pages = list(chunked(books, books_per_page))
-
+    books_on_page = list(chunked(books, books_per_page))
     project_root = Path(__file__).parent
     target_dir = project_root / 'pages'
     target_dir.mkdir(parents=True, exist_ok=True)
 
-    for page_num, page_books in enumerate(book_pages, start=1):
+    for page_num, page_books in enumerate(books_on_page, start=1):
         books_chunked = list(chunked(page_books, 2))
-        rendered_page = render_library_site(books_chunked)
+        rendered_page = render_library_site(books_chunked,
+                                            page_num,
+                                            len(books_on_page))
         file_path = target_dir / f'index{page_num}.html'
         with open(file_path, 'w', encoding='utf-8') as file:
             file.write(rendered_page)
+
+
+# def get_page_count(dir):
+#     return len(os.listdir(dir))
 
 
 def main():
@@ -34,7 +41,7 @@ def main():
     save_paginated_books(books_json)
     server = Server()
     server.watch('pages/*.html')
-    server.serve(root='pages', default_filename='index2.html')
+    server.serve(root='pages', default_filename='index1.html')
 
 
 if __name__ == '__main__':
