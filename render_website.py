@@ -18,7 +18,7 @@ def render_library_site(books_chunk, current_page, pages_count):
 def save_paginated_books(books, books_per_page=10):
     books_on_page = list(chunked(books, books_per_page))
     project_root = Path(__file__).parent
-    target_dir = project_root / 'pages'
+    target_dir = project_root / 'docs'
     target_dir.mkdir(parents=True, exist_ok=True)
 
     for page_num, page_books in enumerate(books_on_page, start=1):
@@ -36,8 +36,8 @@ def main():
         books_json = json.load(my_file)
     save_paginated_books(books_json)
     server = Server()
-    server.watch('pages/*.html')
-    server.serve(root='pages', default_filename='index1.html')
+    server.watch('docs/*.html')
+    server.serve(root='docs', default_filename='index1.html')
 
 
 if __name__ == '__main__':
