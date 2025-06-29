@@ -1,5 +1,4 @@
 import json
-from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server, shell
 from more_itertools import chunked
@@ -16,9 +15,6 @@ def render_library_site(books_chunk, current_page, pages_count):
 
 def save_paginated_books(books, books_per_page=10):
     books_on_page = list(chunked(books, books_per_page))
-    # project_root = Path(__file__).parent
-    # target_dir = 'docs'
-    # # target_dir.mkdir(parents=True, exist_ok=True)
 
     for page_num, page_books in enumerate(books_on_page, start=1):
         books_chunked = list(chunked(page_books, 2))
