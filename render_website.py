@@ -16,17 +16,16 @@ def render_library_site(books_chunk, current_page, pages_count):
 
 def save_paginated_books(books, books_per_page=10):
     books_on_page = list(chunked(books, books_per_page))
-    project_root = Path(__file__).parent
-    static_dir = project_root / 'static'
-    target_dir = project_root / 'docs'
-    target_dir.mkdir(parents=True, exist_ok=True)
+    # project_root = Path(__file__).parent
+    # target_dir = 'docs'
+    # # target_dir.mkdir(parents=True, exist_ok=True)
 
     for page_num, page_books in enumerate(books_on_page, start=1):
         books_chunked = list(chunked(page_books, 2))
         rendered_page = render_library_site(books_chunked,
                                             page_num,
                                             len(books_on_page))
-        file_path = target_dir / f'index{page_num}.html'
+        file_path = f'docs/index{page_num}.html'
         with open(file_path, 'w', encoding='utf-8') as file:
             file.write(rendered_page)
 
