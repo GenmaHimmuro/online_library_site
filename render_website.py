@@ -1,5 +1,4 @@
 import json
-import os
 from pathlib import Path
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from livereload import Server, shell
