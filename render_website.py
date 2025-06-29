@@ -18,6 +18,7 @@ def render_library_site(books_chunk, current_page, pages_count):
 def save_paginated_books(books, books_per_page=10):
     books_on_page = list(chunked(books, books_per_page))
     project_root = Path(__file__).parent
+    static_dir = project_root / 'static'
     target_dir = project_root / 'docs'
     target_dir.mkdir(parents=True, exist_ok=True)
 
