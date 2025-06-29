@@ -37,7 +37,7 @@ def main():
     save_paginated_books(books_json)
     server = Server()
     server.watch('docs/*.html')
-    server.serve(root='docs', default_filename='index1.html')
+    server.serve(root='.', default_filename='index1.html')
 
 
 if __name__ == '__main__':
