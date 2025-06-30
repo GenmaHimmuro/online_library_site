@@ -1,4 +1,4 @@
-# [Сайт онлайн библиотеки](https://genmahimmuro.github.io/online_library_site/index1.html)
+# [Сайт онлайн библиотеки](https://genmahimmuro.github.io/online_library_site/docs/index1.html)
 
 
 ## Запуск
