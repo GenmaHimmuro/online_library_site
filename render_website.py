@@ -22,7 +22,7 @@ def save_paginated_books(books, books_per_page=10):
         rendered_page = render_library_site(books_chunked,
                                             page_num,
                                             len(books_on_page))
-        file_path = f'docs/index{page_num}.html'
+        file_path = f'pages/index{page_num}.html'
         with open(file_path, 'w', encoding='utf-8') as file:
             file.write(rendered_page)
 
@@ -32,8 +32,8 @@ def main():
         books_json = json.load(my_file)
     save_paginated_books(books_json)
     server = Server()
-    server.watch('docs/*.html')
-    server.serve(root='docs', default_filename='index1.html')
+    server.watch('pages/*.html')
+    server.serve(root='.', default_filename='index1.html')
 
 
 if __name__ == '__main__':

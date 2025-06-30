@@ -1,5 +1,6 @@
-# [Сайт онлайн библиотеки](https://genmahimmuro.github.io/online_library_site/docs/index1.html)
-
+# Сайт онлайн библиотеки
+###  [GitHub Pages](https://genmahimmuro.github.io/online_library_site/docs/index1.html)
+### [127.0.0.1:5500](http://127.0.0.1:5500/pages/index1.html)
 
 ## Запуск
 
