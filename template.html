@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Online Library</title>
     <link rel="icon" type="image/png" sizes="16x16" href="../static/favicon_img/favicon-16x16.png">
     <link href="../static/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container">
         <nav aria-label="Page navigation" class="mb-4 mt-3">
@@ -27,6 +29,7 @@
                 </li>
             </ul>
         </nav>
+
         {% for row in books_rows %}
         <div class="row row-cols-1 row-cols-md-2 g-4">
             {% for book in row %}
@@ -55,6 +58,8 @@
         </div>
         {% endfor %}
     </div>
+
     <script src="../static/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
