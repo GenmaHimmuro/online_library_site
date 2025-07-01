@@ -14,11 +14,11 @@ def render_library_site(books_chunk, current_page, pages_count):
     )
 
 
-def save_paginated_books(books, books_per_page=10):
+def save_paginated_books(books, books_per_page=10, books_per_row=2):
     books_on_page = list(chunked(books, books_per_page))
 
     for page_num, page_books in enumerate(books_on_page, start=1):
-        books_chunked = list(chunked(page_books, 2))
+        books_chunked = list(chunked(page_books, books_per_row))
         rendered_page = render_library_site(books_chunked,
                                             page_num,
                                             len(books_on_page))
