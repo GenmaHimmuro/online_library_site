@@ -1,9 +1,10 @@
 import json
 import os
 from jinja2 import Environment, FileSystemLoader, select_autoescape
-from livereload import Server, shell
+from livereload import Server
 from more_itertools import chunked
 from dotenv import load_dotenv
+from functools import partial
 
 
 def render_library_site(books_chunk, current_page, pages_count):
@@ -31,12 +32,14 @@ def save_paginated_books(books, books_per_page=10, books_per_row=2):
 
 def main():
     load_dotenv()
-    with open(os.getenv('PATH_TO_DATA_FILE'), "r", encoding='UTF-8') as my_file:
+    with open(os.getenv('PATH_TO_DATA_FILE', default='json_data/meta_data.json'), 'r', encoding='UTF-8') as my_file:
         books_json = json.load(my_file)
     save_paginated_books(books_json)
     server = Server()
-    server.watch('pages/*.html')
-    server.serve(root='.', default_filename='index1.html')
+    server.watch('template.html',
+                 partial(save_paginated_books, books_json),
+                 delay=1)
+    server.serve(root='.')
 
 
 if __name__ == '__main__':
