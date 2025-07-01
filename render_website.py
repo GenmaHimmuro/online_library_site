@@ -28,7 +28,7 @@ def save_paginated_books(books, books_per_page=10):
 
 
 def main():
-    with open("meta_data.json", "r", encoding='UTF-8') as my_file:
+    with open("json_data/meta_data.json", "r", encoding='UTF-8') as my_file:
         books_json = json.load(my_file)
     save_paginated_books(books_json)
     server = Server()
