@@ -45,7 +45,7 @@
                                     <span class="badge rounded-pill bg-dark me-1 mb-1">{{ genre.strip() }}</span>
                                     {% endfor %}
                                 </p>
-                                <p><a href="../media/{{ book.book_path | urlencode }}">Читать...</a></p>
+                                <p><a href="../media/{{ book.book_path | urlencode }}" target="{{ book.title }}" rel="noopener noreferrer">Читать...</a></p>
                             </div>
                         </div>
                     </div>
