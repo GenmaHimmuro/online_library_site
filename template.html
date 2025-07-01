@@ -34,7 +34,7 @@
                 <div class="card h-100 rounded-0" style="border: 1px solid #e0e0e0;">
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="../media/{{ book.img_src }}" class="h-100 w-100" alt="{{ book.title }}" style="object-fit: cover;">
+                            <img src="../media/{{ book.img_src | urlencode }}" class="h-100 w-100" alt="{{ book.title }}" style="object-fit: cover;">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
@@ -45,7 +45,7 @@
                                     <span class="badge rounded-pill bg-dark me-1 mb-1">{{ genre.strip() }}</span>
                                     {% endfor %}
                                 </p>
-                                <p><a href="../media/{{ book.book_path }}">Читать...</a></p>
+                                <p><a href="../media/{{ book.book_path | urlencode }}">Читать...</a></p>
                             </div>
                         </div>
                     </div>
